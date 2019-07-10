@@ -8,7 +8,7 @@ import kr.or.yi.gradle_mybatis_c3p0.dto.Title;
 import kr.or.yi.gradle_mybatis_c3p0.jdbc.MyBatisSqlSessionFactory;
 
 public class TitleDaoImpl implements TitleDao {
-	private static final String namespace = "kr.or.yi.gradle_mybatis_c3p0.dao.TitleDao";
+	private static final String namespace = "mapper.titleMapper";
 	@Override
 	public List<Title> selectTitlebyAll() {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
@@ -42,7 +42,15 @@ public class TitleDaoImpl implements TitleDao {
 			int res = sqlSession.update(namespace + ".updateTitle", title);
 			sqlSession.commit();
 			return res;
+		}
 	}
-
-}
+	@Override
+	public Title selectTitleByCode(Title title) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
+			return sqlSession.selectOne(namespace+".selectTitleByCode", title);
+		}
+	}
+	
+	
+	
 }

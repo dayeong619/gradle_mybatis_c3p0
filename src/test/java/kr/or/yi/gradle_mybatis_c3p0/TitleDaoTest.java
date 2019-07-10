@@ -21,7 +21,6 @@ public class TitleDaoTest extends AbstractTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		titleDao = new TitleDaoImpl();
-	
 	}
 
 	@AfterClass
@@ -33,12 +32,10 @@ public class TitleDaoTest extends AbstractTest {
 	public void test02SelectTitleByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Title> titleList = titleDao.selectTitlebyAll();
-		Assert.assertNotNull(titleList);
-		
+		Assert.assertNotNull(titleList);	
 		for(Title t : titleList) {
 			log.debug(String.format("%d -> %s", t.getTitleNo(), t.getTitleName()));
-		}
-		
+		}		
 	}
 	
 	@Test
@@ -55,16 +52,24 @@ public class TitleDaoTest extends AbstractTest {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Title deleteTitle = new Title(6);
 		int res = titleDao.deleteTitle(deleteTitle); //실패하면 -1
-		Assert.assertEquals(1, res); //1이면 insert 됨.
-		
+		Assert.assertEquals(1, res); //1이면 insert 됨.		
 	}
+	
 	@Test
 	public void test03updateTitle() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Title updateTitle = new Title(6, "계약직");
 		int res = titleDao.updateTitle(updateTitle); //실패하면 -1
-		Assert.assertEquals(1, res); //1이면 insert 됨.
-		
+		Assert.assertEquals(1, res); //1이면 insert 됨.	
+	}
+	
+	@Test
+	public void test05SelectTitleByCode() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Title selectedTitle = new Title(1);
+		Title searchTitle = titleDao.selectTitleByCode(selectedTitle);
+		log.debug("searchTitle" + searchTitle);
+		Assert.assertNotNull(searchTitle); 
 	}
 	
 }
