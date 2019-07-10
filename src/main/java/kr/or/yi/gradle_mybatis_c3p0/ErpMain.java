@@ -1,4 +1,4 @@
-package kr.or.yi.gradle_mybatis_c3p0.main;
+package kr.or.yi.gradle_mybatis_c3p0;
 
 import java.awt.EventQueue;
 

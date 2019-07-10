@@ -30,7 +30,7 @@ public class TitleDaoTest extends AbstractTest {
 	}
 
 	@Test
-	public void testSelectTitleByAll() {
+	public void test02SelectTitleByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Title> titleList = titleDao.selectTitlebyAll();
 		Assert.assertNotNull(titleList);
@@ -40,7 +40,33 @@ public class TitleDaoTest extends AbstractTest {
 		}
 		
 	}
-
+	
+	@Test
+	public void test01InsertTitle() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Title insertTitle = new Title(6, "인턴");
+		int res = titleDao.insertTitle(insertTitle); //실패하면 -1
+		Assert.assertEquals(1, res); //1이면 insert 됨.
+		
+	}
+	
+	@Test
+	public void test04deleteTitle() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Title deleteTitle = new Title(6);
+		int res = titleDao.deleteTitle(deleteTitle); //실패하면 -1
+		Assert.assertEquals(1, res); //1이면 insert 됨.
+		
+	}
+	@Test
+	public void test03updateTitle() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Title updateTitle = new Title(6, "계약직");
+		int res = titleDao.updateTitle(updateTitle); //실패하면 -1
+		Assert.assertEquals(1, res); //1이면 insert 됨.
+		
+	}
+	
 }
 
 
