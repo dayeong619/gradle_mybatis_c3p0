@@ -60,12 +60,11 @@ public class TitleFrameUI extends JFrame implements ActionListener {
 		pBtns.add(btnCancel);
 
 		pList = new TitleList("직책 목록");	
-		reloadList(pList);
+		reloadList();
 		
 		getContentPane().add(pList, BorderLayout.SOUTH);
 		
 		popupMenu = new JPopupMenu();
-		pList.add(popupMenu, BorderLayout.NORTH);
 		
 		mntmUpdate = new JMenuItem("수정");
 		mntmUpdate.addActionListener(this);
@@ -76,9 +75,12 @@ public class TitleFrameUI extends JFrame implements ActionListener {
 		popupMenu.add(mntmDelete);
 		
 		pList.setPopupMenu(popupMenu);
+		
+		reloadList();
+		clearContent();
 	}
 
-	private void reloadList(TitleList pList) {
+	private void reloadList() {
 		titleList = dao.selectTitlebyAll();
 		pList.setItemList(titleList);
 		pList.reloadData();
@@ -141,7 +143,7 @@ public class TitleFrameUI extends JFrame implements ActionListener {
 	private void refreshUI(Title item, int res) {
 		String message = res==1?"성공":"실패";
 		JOptionPane.showMessageDialog(null, item + message);
-		reloadList(pList);
+		reloadList();
 		clearContent();
 	}
 }
