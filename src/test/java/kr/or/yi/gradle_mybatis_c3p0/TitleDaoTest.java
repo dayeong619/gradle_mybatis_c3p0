@@ -13,8 +13,7 @@ import kr.or.yi.gradle_mybatis_c3p0.dao.TitleDao;
 import kr.or.yi.gradle_mybatis_c3p0.dao.TitleDaoImpl;
 import kr.or.yi.gradle_mybatis_c3p0.dto.Title;
 
-
-@FixMethodOrder(MethodSorters.NAME_ASCENDING) //이름순정렬
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TitleDaoTest extends AbstractTest {
 	private static TitleDao titleDao;
 	
@@ -30,49 +29,55 @@ public class TitleDaoTest extends AbstractTest {
 
 	@Test
 	public void test02SelectTitleByAll() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		List<Title> titleList = titleDao.selectTitlebyAll();
-		Assert.assertNotNull(titleList);	
+		Assert.assertNotNull(titleList);
+		
 		for(Title t : titleList) {
 			log.debug(String.format("%d -> %s", t.getTitleNo(), t.getTitleName()));
-		}		
+		}
 	}
 	
 	@Test
 	public void test01InsertTitle() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		Title insertTitle = new Title(6, "인턴");
-		int res = titleDao.insertTitle(insertTitle); //실패하면 -1
-		Assert.assertEquals(1, res); //1이면 insert 됨.
-		
+		int res = titleDao.insertTitle(insertTitle);
+		Assert.assertEquals(1, res);
 	}
 	
 	@Test
-	public void test04deleteTitle() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Title deleteTitle = new Title(6);
-		int res = titleDao.deleteTitle(deleteTitle); //실패하면 -1
-		Assert.assertEquals(1, res); //1이면 insert 됨.		
-	}
-	
-	@Test
-	public void test03updateTitle() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+	public void test03UpdateTitle() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		Title updateTitle = new Title(6, "계약직");
-		int res = titleDao.updateTitle(updateTitle); //실패하면 -1
-		Assert.assertEquals(1, res); //1이면 insert 됨.	
+		int res = titleDao.updateTitle(updateTitle);
+		Assert.assertEquals(1, res);
 	}
 	
+	
+	@Test
+	public void test04DeleteTitle() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Title deleteTitle = new Title(6);
+		int res = titleDao.deleteTitle(deleteTitle);
+		Assert.assertEquals(1, res);
+	}
+
 	@Test
 	public void test05SelectTitleByCode() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Title selectedTitle = new Title(1);
-		Title searchTitle = titleDao.selectTitleByCode(selectedTitle);
-		log.debug("searchTitle" + searchTitle);
-		Assert.assertNotNull(searchTitle); 
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Title seletedTitle = new Title(1);
+		Title searchTitle = titleDao.selectTitleByCode(seletedTitle);
+		log.debug("search Title" + searchTitle);
+		Assert.assertNotNull(searchTitle);
 	}
-	
 }
+
+
+
+
+
+
 
 
 

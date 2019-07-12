@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.yi.gradle_mybatis_c3p0.dao.DepartmentDao">
-	<select id="selectTitlebyAll" resultType="Department">
+	<select id="selectDepartmentbyAll" resultType="Department">
 		select dept_code, dept_name, floor from department;
 	</select>
-	
+	<insert id="insertDepartment" parameterType="Department">
+		insert into department(dept_code, dept_name, floor) values(#{deptNo}, #{deptName}, #{floor});
+	</insert>
+	<delete id="deleteDepartment" parameterType="Department">
+		delete from department where dept_code= #{deptNo};
+	</delete>
+	<update id="updateDepartment" parameterType="Department">
+		update department
+		set dept_name = #{deptName}
+		where dept_code = #{deptNo}
+	</update>
+	<select id="selectDepartmentByCode" parameterType="Department" resultType="Department">
+		select dept_code, dept_name
+		from department
+		where dept_code = #{deptNo}
+	</select>
 </mapper>
