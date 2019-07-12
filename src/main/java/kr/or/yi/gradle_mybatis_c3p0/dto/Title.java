@@ -5,6 +5,12 @@ import kr.or.yi.gradle_mybatis_c3p0.dto.Title;
 public class Title {
 	private int titleNo;
 	private String titleName;
+	
+	
+
+	public Title() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Title(int titleNo) {
 		this.titleNo = titleNo;

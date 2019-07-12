@@ -44,7 +44,7 @@ public class TitleFrameUI extends JFrame implements ActionListener {
 		getContentPane().add(pMain, BorderLayout.CENTER);
 		pMain.setLayout(new BorderLayout(0, 0));
 
-		pContent = new PanelTitle();
+		pContent = new PanelTitle("직책");
 		clearContent();
 		pMain.add(pContent, BorderLayout.CENTER);
 
