@@ -6,19 +6,19 @@
 
 	</select>
 	<insert id="insertDepartment" parameterType="Department">
-		insert into department(dept_code, dept_name, floor) values(#{deptNo}, #{deptName}, #{floor});
+		insert into department(dept_code, dept_name, floor) values(#{deptCode}, #{deptName}, #{floor});
 	</insert>
 	<delete id="deleteDepartment" parameterType="Department">
-		delete from department where dept_code= #{deptNo};
+		delete from department where dept_code= #{deptCode};
 	</delete>
 	<update id="updateDepartment" parameterType="Department">
 		update department
 		set dept_name = #{deptName}
-		where dept_code = #{deptNo}
+		where dept_code = #{deptCode}
 	</update>
 	<select id="selectDepartmentByCode" parameterType="Department" resultType="Department">
 		select dept_code, dept_name
 		from department
-		where dept_code = #{deptNo}
+		where dept_code = #{deptCode}
 	</select>
 </mapper>

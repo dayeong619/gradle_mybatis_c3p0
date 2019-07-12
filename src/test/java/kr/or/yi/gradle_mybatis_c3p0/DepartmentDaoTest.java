@@ -69,7 +69,7 @@ public class DepartmentDaoTest extends AbstractTest {
 	@Test
 	public void test05SelectDepartmentByCode() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Department selectedDept = new Department(9);
+		Department selectedDept = new Department(1);
 		Department searchDept = departmentDao.selectDepartmentByCode(selectedDept);
 		log.debug("searchDepartment" + searchDept);
 		Assert.assertNotNull(searchDept); 
