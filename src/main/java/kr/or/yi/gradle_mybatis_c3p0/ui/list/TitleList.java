@@ -8,7 +8,7 @@ import kr.or.yi.gradle_mybatis_c3p0.dto.Title;
 public class TitleList extends AbstractList<Title> {
 	
 	public TitleList(String title) {
-		super(title);	
+		super("직책");	
 	}
 	
 	@Override
