@@ -12,8 +12,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	@Override
 	public List<Department> selectDepartmentbyAll() {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
-			return sqlSession.selectList(namespace+".selectTitlebyAll");
-			//TitleMapper.xml에 있는 패키지명과함수명 써야함.
+			return sqlSession.selectList(namespace+".selectDepartmentbyAll");
+			//DepartmentMapper.xml에 있는 패키지명과함수명 써야함.
 			
 		}
 	
@@ -21,7 +21,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	@Override
 	public int insertDepartment(Department dept) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
-			int res = sqlSession.insert(namespace + ".insertTitle", dept);
+			int res = sqlSession.insert(namespace + ".insertDepartment", dept);
 			sqlSession.commit();
 			return res;
 			
@@ -30,7 +30,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	@Override
 	public int deleteDepartment(Department dept) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
-			int res = sqlSession.delete(namespace + ".deleteTitle", dept);
+			int res = sqlSession.delete(namespace + ".deleteDepartment", dept);
 			sqlSession.commit();
 			return res;
 			
@@ -39,7 +39,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	@Override
 	public int updateDepartment(Department dept) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
-			int res = sqlSession.update(namespace + ".updateTitle", dept);
+			int res = sqlSession.update(namespace + ".updateDepartment", dept);
 			sqlSession.commit();
 			return res;
 		}
@@ -47,10 +47,10 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	@Override
 	public Department selectDepartmentByCode(Department dept) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
-			return sqlSession.selectOne(namespace+".selectTitleByCode", dept);
+			return sqlSession.selectOne(namespace+".selectDepartmentByCode", dept);
 		}
 	}
-	
+
 	
 	
 }

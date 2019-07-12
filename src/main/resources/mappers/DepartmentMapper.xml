@@ -3,6 +3,7 @@
 <mapper namespace="kr.or.yi.gradle_mybatis_c3p0.dao.DepartmentDao">
 	<select id="selectDepartmentbyAll" resultType="Department">
 		select dept_code, dept_name, floor from department;
+
 	</select>
 	<insert id="insertDepartment" parameterType="Department">
 		insert into department(dept_code, dept_name, floor) values(#{deptNo}, #{deptName}, #{floor});

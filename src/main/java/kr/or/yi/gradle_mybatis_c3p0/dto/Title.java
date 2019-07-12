@@ -6,8 +6,6 @@ public class Title {
 	private int titleNo;
 	private String titleName;
 
-	
-	
 	public Title() {
 		// TODO Auto-generated constructor stub
 	}
@@ -65,6 +63,6 @@ public class Title {
 	}
 
 	public Object[] toArray() {
-		return new Object[]{String.format("T%03d", titleNo), titleName};
+		return new Object[] { String.format("T%03d", titleNo), titleName };
 	}
 }
