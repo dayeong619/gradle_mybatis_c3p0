@@ -16,10 +16,37 @@
 	</resultMap>
 
 
-
 	<select id="selectEmployeeByAll" resultMap="empResult">
 		select eno, ename, salary, dept_code, dept_name, floor, gender, joindate, title_code, title_name
 		from employee e join department d on e.dno = d.dept_code
 		join title t on e.title = t.title_code;
 	</select>
+	
+	<update id="updateEmployee" parameterType="Employee">
+		update employee
+		set ename = #{eName}, salary=#{salary}, dno=#{dno.deptCode}, gender=#{gender}, joindate=#{joinDate}
+		title=#{title.titleNo}
+		where eno=#{eNo};	
+	</update>
+	
+	<insert id="insertEmployee">
+		insert into employee(ename, salary, dno, gender, joindate) values(#{eName}, #{salary}, #{dno.deptCode}, #{gender}, #{joinDate});
+	</insert>
+	
+	<delete id="deleteEmployee">
+		delete from employee where dno= #{dno.deptCode};
+	</delete>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

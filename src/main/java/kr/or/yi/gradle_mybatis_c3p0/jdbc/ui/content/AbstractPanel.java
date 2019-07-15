@@ -16,4 +16,6 @@ public abstract class AbstractPanel<T> extends JPanel {
 	public abstract T getItem();
 
 	public abstract void clearComponent(int nextNo);
+
+	
 }

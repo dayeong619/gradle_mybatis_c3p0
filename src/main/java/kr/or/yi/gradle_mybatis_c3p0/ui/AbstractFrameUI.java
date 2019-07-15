@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import kr.or.yi.gradle_mybatis_c3p0_teacher.ui.content.AbstractPanel;
-import kr.or.yi.gradle_mybatis_c3p0_teacher.ui.list.AbstractList;
+import kr.or.yi.gradle_mybatis_c3p0.jdbc.ui.content.AbstractPanel;
+import kr.or.yi.gradle_mybatis_c3p0.ui.list.AbstractList;
 
 @SuppressWarnings("serial")
 public abstract class AbstractFrameUI<T> extends JFrame implements ActionListener {
