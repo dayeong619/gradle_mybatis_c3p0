@@ -13,3 +13,6 @@ select eno, ename, salary, dept_code, dept_name, floor, gender, joindate, title_
 		
 	
 	select title_code, title_name from title;
+	
+call salary_total(1); -- 1번부서에 대한 급여 합계
+

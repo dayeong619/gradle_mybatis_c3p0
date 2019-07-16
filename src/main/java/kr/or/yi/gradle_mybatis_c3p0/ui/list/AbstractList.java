@@ -52,7 +52,7 @@ public abstract class AbstractList<T> extends JPanel {
 	}
 
 	private Object[][] getRows() {
-		if (itemList == null) {
+		if (itemList==null) {
 			itemList = new ArrayList<>();
 		}
 		Object[][] rows = new Object[itemList.size()][];

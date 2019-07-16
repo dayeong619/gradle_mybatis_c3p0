@@ -9,13 +9,12 @@ public abstract class AbstractPanel<T> extends JPanel {
 		initComponents(title);
 	}
 
-	protected abstract void initComponents(String title) ;
-	
+	protected abstract void initComponents(String title);
+
 	public abstract void setItem(T item);
 
 	public abstract T getItem();
 
 	public abstract void clearComponent(int nextNo);
 
-	
 }
