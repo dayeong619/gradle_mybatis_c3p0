@@ -1,82 +1,79 @@
--- 마이바티
-DROP SCHEMA IF EXISTS mybatis_study;
+-- coffee_management
+DROP SCHEMA IF EXISTS coffee_management;
 
--- 마이바티
-CREATE SCHEMA mybatis_study;
+-- coffee_management
+CREATE SCHEMA coffee_management;
 
--- 직책
-CREATE TABLE mybatis_study.title (
-	title_code INTEGER     NOT NULL COMMENT '직책번호', -- 직책번호
-	title_name VARCHAR(20) NOT NULL COMMENT '직책명' -- 직책명
+-- 제품
+CREATE TABLE coffee_management.product (
+	code CHAR(4)     NOT NULL COMMENT '제품코드', -- 제품코드
+	name VARCHAR(20) NOT NULL COMMENT '제품명' -- 제품명
 )
-COMMENT '직책';
+COMMENT '제품';
 
--- 직책
-ALTER TABLE mybatis_study.title
-	ADD CONSTRAINT PK_title -- 직책 기본키
+-- 제품
+ALTER TABLE coffee_management.product
+	ADD CONSTRAINT
 		PRIMARY KEY (
-			title_code -- 직책번호
+			code -- 제품코드
 		);
 
--- 부서
-CREATE TABLE mybatis_study.department (
-	dept_code INTEGER     NOT NULL COMMENT '부서번호', -- 부서번호
-	dept_name VARCHAR(20) NULL     COMMENT '부서명', -- 부서명
-	floor     INTEGER     NULL     COMMENT '위치' -- 위치
+-- 판매
+CREATE TABLE coffee_management.sale (
+	no         INT(11) NOT NULL COMMENT '번호', -- 번호
+	code       CHAR(4) NULL     COMMENT '제품코드', -- 제품코드
+	price      INT(8) NOT NULL COMMENT '제품단가', -- 제품단가
+	saleCnt    INT(8) NOT NULL COMMENT '판매수량', -- 판매수량
+	marginRate INT(2) NOT NULL COMMENT '마진율' -- 마진율
 )
-COMMENT '부서';
+COMMENT '판매';
 
--- 부서
-ALTER TABLE mybatis_study.department
-	ADD CONSTRAINT PK_department -- 부서 기본키
+-- 판매
+ALTER TABLE coffee_management.sale
+	ADD CONSTRAINT
 		PRIMARY KEY (
-			dept_code -- 부서번호
+			no -- 번호
 		);
 
--- 사원
-CREATE TABLE mybatis_study.employee (
-	eno      INTEGER     NOT NULL COMMENT '사원번호', -- 사원번호
-	ename    VARCHAR(20) NOT NULL COMMENT '사원명', -- 사원명
-	salary   INTEGER     NULL     COMMENT '급여', -- 급여
-	dno      INTEGER     NULL     COMMENT '부서번호', -- 부서번호
-	gender   TINYINT(1)  NULL     COMMENT '성별', -- 성별
-	joindate DATE        NOT NULL COMMENT '입사일자', -- 입사일자
-	title    INTEGER     NULL     COMMENT '직책번호' -- 직책번호
-)
-COMMENT '사원';
+ALTER TABLE coffee_management.sale
+	MODIFY COLUMN no INT(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
--- 사원
-ALTER TABLE mybatis_study.employee
-	ADD CONSTRAINT PK_employee -- 사원 기본키
-		PRIMARY KEY (
-			eno -- 사원번호
-		);
+ALTER TABLE coffee_management.sale
+	AUTO_INCREMENT = 1;
 
--- 사원
-ALTER TABLE mybatis_study.employee
-	ADD CONSTRAINT FK_department_TO_employee -- 부서 -> 사원
+-- 판매
+ALTER TABLE coffee_management.sale
+	ADD CONSTRAINT FK_product_TO_sale -- FK_product_TO_sale
 		FOREIGN KEY (
-			dno -- 부서번호
+			code -- 제품코드
 		)
-		REFERENCES mybatis_study.department ( -- 부서
-			dept_code -- 부서번호
-		);
+		REFERENCES ncs_product.product ( -- 제품
+			code -- 제품코드
+		)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+	ADD INDEX FK_product_TO_sale (
+		code -- 제품코드
+	);
+	
+alter table ncs_exam.sale
+modify column no int auto_increment;
+set foreign_key_checks = 0;
 
--- 사원
-ALTER TABLE mybatis_study.employee
-	ADD CONSTRAINT FK_title_TO_employee -- 직책 -> 사원
-		FOREIGN KEY (
-			title -- 직책번호
-		)
-		REFERENCES mybatis_study.title ( -- 직책
-			title_code -- 직책번호
-		);
-		
-	
--- 계정과 권한부여
-grant all privileges 
-on mybatis_study.* 
-to 'user_mybatis_study'@'localhost' 
-identified by 'rootroot';	
-	
-	
+-- 순위 구하는 프로시저
+DROP PROCEDURE IF EXISTS coffee_management.price_rank;
+
+DELIMITER $$
+$$
+CREATE definer=root@localhost PROCEDURE coffee_management.price_rank(in isSale boolean)
+begin
+	set @rank := 0, @price := 0;
+
+	select *, greatest(@rank := if(@price = if(isSale, salePrice, marginPrice), @rank, @rank + 1), least(0, @price := if(isSale, salePrice, marginPrice))) as rank
+	from (select product.code, name, no, price, saleCnt, marginRate, (@salePrice := saleCnt * price) as salePrice,
+		ceiling( @addTax := (@salePrice / 11) ) as addTax,
+		ceiling( @supplyTax := (@salePrice - @addTax) ) as supplyTax,
+		round(@supplyTax * marginRate / 100) as marginPrice from product join sale on product.code = sale.code) t
+		order by if(isSale, salePrice, marginPrice) desc;
+END$$
+DELIMITER ;

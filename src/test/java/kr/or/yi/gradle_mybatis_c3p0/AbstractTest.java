@@ -12,6 +12,4 @@ public class AbstractTest {
 		System.out.println();
 	}
 
-	
-
 }
